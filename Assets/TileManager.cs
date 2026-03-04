@@ -1,16 +1,28 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    public Tilemap tilemap;
+    public TileBase blockTile;
+    public Transform player;
+    private float range = 6f;
     void Update()
     {
-        
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
+        Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPosition);
+
+        float distance = Vector2.Distance(player.position, cellCenter);
+
+        if (distance <= range)
+        {
+            if (Input.GetMouseButtonDown(0) && tilemap.GetTile(cellPosition) == null)
+            {
+                tilemap.SetTile(cellPosition, blockTile);
+            }
+        }
+            
     }
 }
