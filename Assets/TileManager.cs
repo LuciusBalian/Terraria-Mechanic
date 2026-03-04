@@ -22,7 +22,14 @@ public class TileManager : MonoBehaviour
             {
                 tilemap.SetTile(cellPosition, blockTile);
             }
+
+            if (Input.GetMouseButtonDown(1) && tilemap.GetTile(cellPosition) != null)
+            {
+                tilemap.SetTile(cellPosition, null);
+            }
         }
-            
+
+        
+
     }
 }
